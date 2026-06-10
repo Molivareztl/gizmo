@@ -1,0 +1,1 @@
+g++ main.cpp ./entidades/jugador/jugador.cpp ./entidades/ladrillo/ladrillo.cpp ./escenas/escenas.cpp -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
