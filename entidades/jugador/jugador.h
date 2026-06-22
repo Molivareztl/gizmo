@@ -11,9 +11,10 @@ private:
     Rectangle hitbox;
     Vector2 tamaño;
 public:
+    int id_textura = 0;
     jugador();
-    ~jugador();
-    void cargar();
+    void descargar();
+    void cargar( Texture2D textura);
     void dibujar();
     void actualizar();
     void colisiona(Rectangle collision);

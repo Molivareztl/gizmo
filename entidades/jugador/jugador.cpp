@@ -12,13 +12,13 @@ jugador::jugador()
     tamaño.y = 20;
     hitbox = {posicion.x, posicion.y, tamaño.x, tamaño.y};
 };
-jugador::~jugador()
+void jugador::descargar()
 {
     UnloadTexture(sprite);
 };
-void jugador::cargar()
+void jugador::cargar( Texture2D textura)
 {
-    sprite = LoadTexture("media/jugador_Pholder.png");
+    sprite = textura;
 }
 void jugador::dibujar()
 {

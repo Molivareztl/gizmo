@@ -3,6 +3,7 @@
 #include "entidades/jugador/jugador.h"
 #include "entidades/ladrillo/ladrillo.h"
 #include "escenas/escenas.h"
+#include "media/gestor_media.h"
 #include <vector>
 
 int main()
@@ -14,14 +15,20 @@ int main()
     
     InitWindow(screenWidth, screenHeight, "gizmo");//screen size
     SetTargetFPS(60);//frames
-    jugador.cargar();//carga todo el contenido de media asociado al jugador
-    // bucle del juego
+
+    gestor_media gestor_imagenes;//iniciar el gestor de imagenes
+    escenas escenas;
+    escenas.cargar(gestor_imagenes.buscar(1));
+    jugador.cargar(gestor_imagenes.buscar(jugador.id_textura));//carga todo el contenido de media asociado al jugador
     
     std::vector<std::vector<ladrillo>> cuarto_posible;
-    cuarto_posible.emplace_back(cuarto1());//cargar niveles
-    cuarto_posible.emplace_back(cuarto2());
+
+    cuarto_posible.emplace_back(escenas.cuarto1());//cargar niveles
+    cuarto_posible.emplace_back(escenas.cuarto2());
+
     std::vector<ladrillo> cuarto_actual = cuarto_posible[GetRandomValue(0,1)];
 
+    // bucle del juego
     while (!WindowShouldClose())
     {
         BeginDrawing();
@@ -37,6 +44,7 @@ int main()
             DrawFPS(10, 10);//dibuja los frames
         EndDrawing();
     }
+    gestor_imagenes.vaciar();
     CloseWindow();
     return 0;
 }
