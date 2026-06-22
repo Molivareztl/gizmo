@@ -9,6 +9,7 @@ private:
     bool esta_colisionando;
     Texture2D sprite;
     Rectangle hitbox;
+    Rectangle direccion;
     Vector2 tamaño;
 public:
     int id_textura = 0;

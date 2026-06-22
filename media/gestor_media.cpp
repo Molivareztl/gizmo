@@ -1,9 +1,11 @@
 #include "gestor_media.h"
 
 gestor_media::gestor_media(){
-    imagenes.reserve(2);
+    imagenes.reserve(4);
     imagenes.push_back(LoadTexture("media/jugador_Pholder.png"));
     imagenes.push_back(LoadTexture("media/ladrillo.png"));
+    imagenes.push_back(LoadTexture("media/puerta.png"));
+    imagenes.push_back(LoadTexture("media/fondo.png"));
 }
 Texture2D gestor_media::buscar( int id){
     return imagenes[id];

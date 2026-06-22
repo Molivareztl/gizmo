@@ -8,8 +8,9 @@ jugador::jugador()
     velocidad.x = 0;
     velocidad.y = 0;
     gravedad = 0;
-    tamaño.x = 20;
-    tamaño.y = 20;
+    direccion = {posicion.x, posicion.y, tamaño.x, tamaño.y};
+    tamaño.x = 32;
+    tamaño.y = 32;
     hitbox = {posicion.x, posicion.y, tamaño.x, tamaño.y};
 };
 void jugador::descargar()
@@ -22,7 +23,7 @@ void jugador::cargar( Texture2D textura)
 }
 void jugador::dibujar()
 {
-    DrawTextureEx(sprite, posicion, 0, 1.2, WHITE);
+    DrawTextureEx(sprite, posicion, 0, 2, WHITE);
 }
 void jugador::actualizar()
 {

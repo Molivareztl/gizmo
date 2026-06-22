@@ -6,8 +6,6 @@ public:
     int id_textura = 1;
     Rectangle hitbox;
     Color color;
-    Vector2 posicion;
-    Vector2 tamaño;
     Texture2D textura;
     ladrillo(int posx,int posy,int ancho, int alto, Color _color, Texture2D textura);
     void dibujar();
