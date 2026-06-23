@@ -7,7 +7,8 @@ public:
     Rectangle hitbox;
     Color color;
     Texture2D textura;
-    ladrillo(int posx,int posy,int ancho, int alto, Color _color, Texture2D textura);
+    bool es_puerta;
+    ladrillo(int posx,int posy,int ancho, int alto, Color _color, Texture2D textura, bool es_puerta);
     void dibujar();
 };
 

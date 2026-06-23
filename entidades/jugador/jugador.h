@@ -14,10 +14,11 @@ private:
 public:
     int id_textura = 0;
     jugador();
-    void descargar();
+    void ubicar(int posx, int posy);
     void cargar( Texture2D textura);
     void dibujar();
     void actualizar();
+    bool estado_colision(Rectangle collision);
     void colisiona(Rectangle collision);
 };
 

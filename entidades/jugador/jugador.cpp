@@ -3,8 +3,6 @@
 jugador::jugador()
 {
     esta_colisionando = false;
-    posicion.x = 100;
-    posicion.y = 100;
     velocidad.x = 0;
     velocidad.y = 0;
     gravedad = 0;
@@ -13,10 +11,10 @@ jugador::jugador()
     tamaño.y = 32;
     hitbox = {posicion.x, posicion.y, tamaño.x, tamaño.y};
 };
-void jugador::descargar()
-{
-    UnloadTexture(sprite);
-};
+void jugador::ubicar(int posx, int posy){
+    posicion.x = posx; 
+    posicion.y = posy;
+}
 void jugador::cargar( Texture2D textura)
 {
     sprite = textura;
@@ -50,6 +48,13 @@ void jugador::actualizar()
         }
         esta_colisionando = false;
 }
+bool jugador::estado_colision(Rectangle collision){
+    if(CheckCollisionRecs(hitbox, collision) == true){
+        return esta_colisionando;
+    }
+    return false;
+}
+
 void jugador::colisiona(Rectangle collision)
 {
     if(CheckCollisionRecs(hitbox, collision) == true){

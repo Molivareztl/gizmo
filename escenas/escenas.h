@@ -1,6 +1,7 @@
 #pragma once
 #include "../entidades/ladrillo/ladrillo.h"
 #include "../media/gestor_media.h"
+#include "../entidades/puerta/puerta.h"
 #include <raylib.h>
 #include <vector>
 class escenas
@@ -8,6 +9,7 @@ class escenas
     public:
     std::vector<ladrillo> cuarto1();
     std::vector<ladrillo> cuarto2();
-    Texture2D textura;
+    std::vector <Texture2D> textura;
     void cargar(Texture2D textura);
+    Vector2 jugador_inicio;
 };

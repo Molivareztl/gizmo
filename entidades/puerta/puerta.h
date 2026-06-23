@@ -1,7 +1,8 @@
 #pragma once
+#include "../ladrillo/ladrillo.h"
 #include <raylib.h>
 
-class puerta
+class puerta : public ladrillo
 {
 private:
     Rectangle dimension;
