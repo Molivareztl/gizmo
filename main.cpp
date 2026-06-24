@@ -41,8 +41,15 @@ int main(){
                     cuarto_actual.clear();
                     cuarto_actual = cuarto_posible[GetRandomValue(0,1)];
                     jugador.ubicar(escenas.jugador_inicio.x, escenas.jugador_inicio.y);
+                    jugador.vaciar();
                 }   
             }
+            for (size_t i = 0; i < jugador.proyectiles.size(); i++)
+            {
+                jugador.proyectiles[i].dibujar();
+                jugador.proyectiles[i].mover();
+            }
+            
             jugador.dibujar();// dibuja al jugador
             jugador.actualizar(); // actualiza la posición del jugador
             DrawFPS(10, 10);//dibuja los frames

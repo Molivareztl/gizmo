@@ -1,1 +1,1 @@
-g++ main.cpp ./entidades/jugador/jugador.cpp ./entidades/ladrillo/ladrillo.cpp ./escenas/escenas.cpp ./media/gestor_media.cpp -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
+g++ main.cpp ./entidades/jugador/jugador.cpp ./entidades/ladrillo/ladrillo.cpp ./escenas/escenas.cpp ./media/gestor_media.cpp ./entidades/proyectil/proyectil.cpp -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
