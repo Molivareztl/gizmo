@@ -8,6 +8,7 @@ private:
     Vector2 posicion;
     Vector2 velocidad;
     int gravedad;
+    float direccion_sprite;
     int velocidad_disparo;
     bool esta_colisionando;
     bool puede_disparar;

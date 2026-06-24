@@ -35,6 +35,19 @@ int main(){
             {
                 jugador.colisiona(cuarto_actual[i].hitbox);
                 cuarto_actual[i].dibujar();
+                if(!jugador.proyectiles.empty()){
+                    for (size_t j = 0; j < jugador.proyectiles.size(); j++)
+                    {
+                    jugador.proyectiles[j].dibujar();
+                    jugador.proyectiles[j].colisiona(cuarto_actual[i].hitbox);
+                        if (jugador.proyectiles[j].esta_colisionando == true)
+                    {
+                        cuarto_actual.erase(cuarto_actual.begin() + i);
+                        jugador.proyectiles.erase(jugador.proyectiles.begin() + j);
+                    }
+                    }
+                    
+                }
                 //detectar el contacto con la puerta
                 if (cuarto_actual[i].es_puerta == true && jugador.estado_colision(cuarto_actual[i].hitbox) == true)
                 {

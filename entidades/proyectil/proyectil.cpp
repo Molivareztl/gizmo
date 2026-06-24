@@ -8,6 +8,7 @@ proyectil::proyectil(Rectangle _hitbox, Vector2 _direccion, bool _puede_destruir
     hitbox.height = 20;
     velocidad.x = 0;
     velocidad.y = 0;
+    esta_colisionando = false;
     direccion = _direccion;
     puede_crear = _puede_crear;
     puede_destruir = _puede_destruir;
@@ -18,6 +19,12 @@ void proyectil::dibujar(){
 void proyectil::mover(){
     hitbox.x += velocidad.x;
     hitbox.y += velocidad.y;
-    velocidad.x += direccion.x; 
-    velocidad.y += direccion.y; 
+    velocidad.x = direccion.x; 
+    velocidad.y = direccion.y;
+
+}
+void proyectil::colisiona(Rectangle collision){
+    if(CheckCollisionRecs(hitbox, collision) == true){
+        esta_colisionando = true;
+    }else{esta_colisionando = false;}
 }

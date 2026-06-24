@@ -15,7 +15,7 @@ std::vector<ladrillo> escenas::cuarto1()
     cuarto1.emplace_back(200,200,50,50, BLUE, textura[0], false);
     cuarto1.emplace_back(300,200,50,100, WHITE, textura[0], false);
     cuarto1.emplace_back(400,200,50,50, GREEN, textura[0], false);
-    cuarto1.emplace_back(500,200,50,50, PURPLE, textura[0], false);
+    cuarto1.emplace_back(500,100,50,100, PURPLE, textura[0], false);
     cuarto1.emplace_back(0, 500, 512, 12, WHITE, textura[1], true);
     jugador_inicio.x = 100;
     jugador_inicio.y = 100;

@@ -10,9 +10,10 @@ private:
     Texture2D textura;
     bool puede_destruir;
     bool puede_crear;
-    bool esta_colisionando;
 public:
+    bool esta_colisionando;
     proyectil(Rectangle hitbox, Vector2 direccion, bool puede_destruir,bool puede_crear);
     void dibujar();
     void mover();
+    void colisiona(Rectangle collision);
 };

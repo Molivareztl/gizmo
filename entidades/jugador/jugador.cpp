@@ -6,7 +6,8 @@ jugador::jugador()
     velocidad.x = 0;
     velocidad.y = 0;
     gravedad = 0;
-    direccion = {0.1,0};
+    direccion = {2,0};
+    direccion_sprite = 16;
     velocidad_disparo = 1;
     tamaño.x = 32;
     tamaño.y = 32;
@@ -23,7 +24,7 @@ void jugador::cargar( Texture2D textura)
 }
 void jugador::dibujar()
 {
-    DrawTextureEx(sprite, posicion, 0, 2, WHITE);
+    DrawTexturePro(sprite, Rectangle{0,0,direccion_sprite,16},hitbox,Vector2{0,0},0,WHITE);
 }
 
 void jugador::disparar(){
@@ -36,15 +37,17 @@ void jugador::actualizar()
     posicion.y += velocidad.y;
     hitbox.x = posicion.x;
     hitbox.y = posicion.y;
+    direccion.x = velocidad.x;
+    direccion.y = velocidad.y;
 
     if(IsKeyDown(KEY_RIGHT))
     {
         velocidad.x = 3;
-        direccion.x = 0.1;
+        direccion_sprite = 16;
     }else if(IsKeyDown(KEY_LEFT))
     {
         velocidad.x = -3;
-        direccion.x = -0.1;
+        direccion_sprite = -16;
     }else {velocidad.x = 0;}
 
     if(IsKeyDown(KEY_UP) && esta_colisionando == true){
@@ -55,13 +58,13 @@ void jugador::actualizar()
     }else{
         velocidad.y += 0.1;
     }
-    esta_colisionando = false;
     
     if(IsKeyDown(KEY_SPACE) && puede_disparar == true)
     {
         puede_disparar = false;
         disparar();
     }else if (!IsKeyDown(KEY_SPACE)){puede_disparar = true;}
+    esta_colisionando = false;
     
 }
 bool jugador::estado_colision(Rectangle collision){
