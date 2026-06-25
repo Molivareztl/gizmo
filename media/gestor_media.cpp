@@ -3,6 +3,7 @@
 gestor_media::gestor_media(){
     imagenes.reserve(4);
     imagenes.push_back(LoadTexture("media/jugador_Pholder.png"));
+    imagenes.push_back(LoadTexture("media/meteoro.png"));
     imagenes.push_back(LoadTexture("media/ladrillo.png"));
     imagenes.push_back(LoadTexture("media/puerta.png"));
     imagenes.push_back(LoadTexture("media/fondo.png"));

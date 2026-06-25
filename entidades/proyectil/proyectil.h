@@ -8,12 +8,12 @@ private:
     Vector2 velocidad;
     Vector2 direccion;
     Texture2D textura;
-    bool puede_destruir;
-    bool puede_crear;
 public:
     bool esta_colisionando;
-    proyectil(Rectangle hitbox, Vector2 direccion, bool puede_destruir,bool puede_crear);
+    int tipo;
+    proyectil(Rectangle hitbox, Vector2 direccion, int tipo);
     void dibujar();
     void mover();
     void colisiona(Rectangle collision);
+    Rectangle devolver_hitbox();
 };

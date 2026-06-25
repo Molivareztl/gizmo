@@ -12,4 +12,5 @@ class escenas
     std::vector <Texture2D> textura;
     void cargar(Texture2D textura);
     Vector2 jugador_inicio;
+    void agregar(Rectangle hitbox);
 };

@@ -10,5 +10,5 @@ ladrillo::ladrillo(int posx,int posy,int ancho, int alto, Color _color, Texture2
     es_puerta = _es_puerta;
 }
 void ladrillo::dibujar(){
-    DrawTexturePro(textura, hitbox, hitbox,Vector2{0,0},0,color);
+    DrawTexturePro(textura, Rectangle{hitbox.x ,hitbox.y,hitbox.width/2,hitbox.height/2}, hitbox,Vector2{0,0},0,color);
 }

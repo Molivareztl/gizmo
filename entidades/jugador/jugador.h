@@ -10,6 +10,7 @@ private:
     int gravedad;
     float direccion_sprite;
     int velocidad_disparo;
+    int opcion;
     bool esta_colisionando;
     bool puede_disparar;
     Texture2D sprite;

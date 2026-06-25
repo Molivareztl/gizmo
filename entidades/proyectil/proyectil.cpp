@@ -1,6 +1,6 @@
 #include "proyectil.h"
 
-proyectil::proyectil(Rectangle _hitbox, Vector2 _direccion, bool _puede_destruir,bool _puede_crear)
+proyectil::proyectil(Rectangle _hitbox, Vector2 _direccion, int _tipo)
 {
     hitbox.x = _hitbox.x;
     hitbox.y = _hitbox.y;
@@ -10,8 +10,7 @@ proyectil::proyectil(Rectangle _hitbox, Vector2 _direccion, bool _puede_destruir
     velocidad.y = 0;
     esta_colisionando = false;
     direccion = _direccion;
-    puede_crear = _puede_crear;
-    puede_destruir = _puede_destruir;
+    tipo = _tipo;
 }
 void proyectil::dibujar(){
     DrawRectangle(hitbox.x,hitbox.y,hitbox.width,hitbox.height,RED);
@@ -27,4 +26,9 @@ void proyectil::colisiona(Rectangle collision){
     if(CheckCollisionRecs(hitbox, collision) == true){
         esta_colisionando = true;
     }else{esta_colisionando = false;}
+}
+
+Rectangle proyectil::devolver_hitbox()
+{
+    return hitbox;
 }
