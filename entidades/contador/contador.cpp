@@ -3,21 +3,21 @@
 contador::contador()
 {
     contadorTiempo = 0.0f;
-    segundosTranscurridos = 0;
+    segundosTranscurridos = 60;
 }
 
 void contador::contar()
 {
     contadorTiempo += GetFrameTime(); 
         
-    if (contadorTiempo >= 3.0f) {
-        segundosTranscurridos++;
-        contadorTiempo -= 3.0f; // Reiniciamos el residuo
+    if (contadorTiempo >= 6.0f) {
+        segundosTranscurridos -= 1;
+        contadorTiempo -= 6.0f; // Reiniciamos el residuo
     }
 }
 
 void contador::dibujar()
 {
-
-    DrawText(TextFormat("%i", segundosTranscurridos),64, 64, 32, WHITE);
+    int tamaño = MeasureText(TextFormat("%i", segundosTranscurridos), 128);
+    DrawText(TextFormat("%i", segundosTranscurridos), (256 - tamaño / 2) , 64, 128, GRAY);
 }

@@ -11,14 +11,18 @@ private:
     float direccion_sprite;
     int velocidad_disparo;
     int opcion;
+    bool en_el_suelo;
     bool esta_colisionando;
     bool puede_disparar;
+    int habitaciones_pasadas;
+    std::vector<int> municion;
     Texture2D sprite;
     Rectangle hitbox;
     Vector2 direccion;
     Vector2 tamaño;
 public:
-    int id_textura = 0;
+    
+    int perdidas;
     std::vector<proyectil> proyectiles;
     jugador();
     void ubicar(int posx, int posy);
@@ -29,5 +33,7 @@ public:
     void colisiona(Rectangle collision);
     void disparar();
     void vaciar();
+    void sumar_punto();
+    int mostrar_punto();
 };
 

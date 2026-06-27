@@ -2,6 +2,7 @@
 
 jugador::jugador(){
     esta_colisionando = false;
+    en_el_suelo = false;
     velocidad.x = 0;
     velocidad.y = 0;
     gravedad = 0;
@@ -9,10 +10,12 @@ jugador::jugador(){
     direccion = {2,0};
     direccion_sprite = 16;
     velocidad_disparo = 1;
+    habitaciones_pasadas = 0;
     tamaño.x = 32;
     tamaño.y = 32;
     hitbox = {posicion.x, posicion.y, tamaño.x, tamaño.y};
     puede_disparar = false;
+    municion ={5, 2};
 };
 void jugador::ubicar(int posx, int posy){
     posicion.x = posx; 
@@ -23,6 +26,7 @@ void jugador::cargar( Texture2D textura){
 }
 void jugador::dibujar(){
     DrawTexturePro(sprite, Rectangle{0,0,direccion_sprite,16},hitbox,Vector2{0,0},0,WHITE);
+    DrawText(TextFormat("%i", municion[opcion]),hitbox.x + hitbox.width/2,hitbox.y - hitbox.width/2,32,WHITE);
 }
 void jugador::disparar(){
     proyectiles.emplace_back(hitbox, direccion,opcion);
@@ -49,9 +53,9 @@ void jugador::actualizar(){
         direccion_sprite = -16;
     }else {velocidad.x = 0;
     }
-    if(IsKeyDown(KEY_UP) && esta_colisionando == true){
+    if(IsKeyDown(KEY_UP) && en_el_suelo == true){
         velocidad.y = -3;
-    }else if (!IsKeyDown(KEY_UP) && esta_colisionando == true){
+    }else if (!IsKeyDown(KEY_UP) && en_el_suelo == true){
         velocidad.y = 0;
     }else{
         velocidad.y += 0.1;
@@ -62,7 +66,8 @@ void jugador::actualizar(){
     }else if (!IsKeyDown(KEY_SPACE)){
         puede_disparar = true;
     }
-    esta_colisionando = false;
+    en_el_suelo = false;
+
 }
 bool jugador::estado_colision(Rectangle collision){
     if(CheckCollisionRecs(hitbox, collision) == true){
@@ -70,8 +75,10 @@ bool jugador::estado_colision(Rectangle collision){
     }
     return false;
 }
+
 void jugador::colisiona(Rectangle collision){
     if(CheckCollisionRecs(hitbox, collision) == true){
+        esta_colisionando = true;
         Rectangle overlap = GetCollisionRec(hitbox, collision);
         if (overlap.width < overlap.height)
         {
@@ -84,7 +91,7 @@ void jugador::colisiona(Rectangle collision){
         if (overlap.width > overlap.height){
             if (posicion.y < collision.y){
                 posicion.y -= overlap.height;
-                esta_colisionando = true;
+                en_el_suelo = true;
             }else{
                 posicion.y += overlap.height;
             }
@@ -94,4 +101,13 @@ void jugador::colisiona(Rectangle collision){
 void jugador::vaciar()
 {
     proyectiles.clear();
+}
+
+void jugador::sumar_punto()
+{
+    habitaciones_pasadas = habitaciones_pasadas +1;
+}
+int jugador::mostrar_punto()
+{
+    return habitaciones_pasadas;
 }
