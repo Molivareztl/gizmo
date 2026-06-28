@@ -4,11 +4,15 @@
 class contador
 {
 private:
-    float contadorTiempo;
-    int segundosTranscurridos;
+    float tiempo;
+    int tiempo_actual;
+    int duracion;
 public:
     contador();
     void contar();
     void dibujar();
     void sumar();
+    bool fin();
+    void reiniciar();
+    int tiempo_partida();
 };

@@ -30,9 +30,11 @@ void jugador::dibujar(){
     {
     case 0:
         DrawText(TextFormat("%i", municion[opcion]),hitbox.x + 8,hitbox.y - hitbox.width,32,PINK);
+        DrawTexture(textura[2],0,0,WHITE);
         break;
     case 1:
         DrawText(TextFormat("%i", municion[opcion]),hitbox.x + 8,hitbox.y - hitbox.width,32,GREEN);
+        DrawTexture(textura[1],0,0,WHITE);
         break;
     }//mostrar el personaje
     DrawTexturePro(textura[0], Rectangle{0,0,direccion_sprite,16},hitbox,Vector2{0,0},0,WHITE);
@@ -118,7 +120,7 @@ void jugador::vaciar()
 
 void jugador::sumar_punto()
 {
-    habitaciones_pasadas = habitaciones_pasadas +1;
+    habitaciones_pasadas ++;
 }
 int jugador::mostrar_punto()
 {

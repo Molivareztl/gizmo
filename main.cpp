@@ -19,17 +19,23 @@ int main(){
     escenas escenas;//iniciar el gestor de escenas
     escenas.cargar(gestor_imagenes.buscar(1));
     escenas.cargar(gestor_imagenes.buscar(2));
+    
     jugador.cargar(gestor_imagenes.buscar(0));//carga todo el contenido de media asociado al jugador
+    jugador.cargar(gestor_imagenes.buscar(7));//carga todo el contenido de media asociado al jugador
+    jugador.cargar(gestor_imagenes.buscar(8));//carga todo el contenido de media asociado al jugador
+
+
     std::vector<std::vector<ladrillo>> cuarto_posible;//iniciar el vector de cuarto
     //cargar niveles :
     cuarto_posible.emplace_back(escenas.cuarto1());
     cuarto_posible.emplace_back(escenas.cuarto2());
-    bool start = false;
-    int menu_opcion;
+
+    int menu_opcion = 0;
+
     std::vector<ladrillo> cuarto_actual = cuarto_posible[GetRandomValue(0,1)];//seleccionar un nivel aleatorio
     jugador.ubicar(escenas.jugador_inicio.x, escenas.jugador_inicio.y);//posición inicial del jugador
     // bucle del juego
-    while (WindowShouldClose() == false && menu_opcion != 2){
+    while (WindowShouldClose() == false && menu_opcion != 3){
         BeginDrawing();//empezar el dibujado de imagen
 
             Vector2 raton = GetMousePosition();
@@ -37,8 +43,9 @@ int main(){
 
             DrawTexturePro(gestor_imagenes.buscar(4),Rectangle{0, 0, 320, 320},Rectangle{0, 0, 512, 512},Vector2{0, 0},0,WHITE);
         
-        if (start == true){//dibujar la escena
-            DrawText(TextFormat("%i", jugador.mostrar_punto()),64,64, 64, WHITE);
+        if (menu_opcion == 1 && contador.fin() == false){//solo se dibuja con el contador activo y la opcion 'iniciar' activa
+            //dibujar la escena
+            DrawText(TextFormat("%i", jugador.mostrar_punto()),240,16, 64, WHITE);
             contador.dibujar();
             for (size_t i = 0; i < cuarto_actual.size(); i++){
                 jugador.colisiona(cuarto_actual[i].hitbox);
@@ -49,7 +56,7 @@ int main(){
                     for (size_t j = 0; j < jugador.proyectiles.size(); j++){
                         jugador.proyectiles[j].dibujar();
                         jugador.proyectiles[j].colisiona(cuarto_actual[i].hitbox);
-                        //detectar colisiones de proyectil
+                        //detectar colisiones de proyectil y definit su comportamiento
                         if (jugador.proyectiles[j].esta_colisionando == true){
                             switch (jugador.proyectiles[j].tipo){
                                 case 0:
@@ -92,29 +99,35 @@ int main(){
                 jugador.proyectiles[i].dibujar();
                 jugador.proyectiles[i].mover();
             }
-            
                 jugador.dibujar();// dibuja al jugador
                 jugador.actualizar(); // actualiza la posición del jugador
-                DrawFPS(10, 10);//dibuja los frames
-        }else{
-            boton iniciar(256,256,128,48,gestor_imagenes.buscar(1));
-            boton ayuda(256,312,128,48,gestor_imagenes.buscar(1));
-            boton salir(256,368,128,48,gestor_imagenes.buscar(1));
-            iniciar.dibujar("iniciar");
-            ayuda.dibujar("ayuda");
-            salir.dibujar("salir");
-            if(iniciar.presionado(raton,raton_presionado)){menu_opcion = 0;}
-            if(ayuda.presionado(raton,raton_presionado)){menu_opcion = 1;}
-            if(salir.presionado(raton,raton_presionado)){menu_opcion = 2;}
-            switch (menu_opcion)
-            {
-            case 0:
-                /* code */
-                break;
-            case 1:
-                /* code */
-                break;
-            }
+        }else if(contador.fin() == true){menu_opcion = 2;}
+
+        switch(menu_opcion){//menu inicial
+            case 0:{
+                DrawTexturePro(gestor_imagenes.buscar(6),Rectangle{0, 0, 256, 128},Rectangle{128, 64, 256, 128},Vector2{0, 0},0,WHITE);
+                boton iniciar(256,256,128,48,gestor_imagenes.buscar(1));
+                boton ayuda(256,312,128,48,gestor_imagenes.buscar(1));
+                boton salir(256,368,128,48,gestor_imagenes.buscar(1));
+                iniciar.dibujar("iniciar");
+                ayuda.dibujar("ayuda");
+                salir.dibujar("salir");
+                if(iniciar.presionado(raton,raton_presionado)){menu_opcion = 1;}
+                if(ayuda.presionado(raton,raton_presionado)){OpenURL("https://www.youtube.com/watch?v=0Ct9ZWEUm7M&t=792s");}
+                if(salir.presionado(raton,raton_presionado)){menu_opcion = 3;}
+            break;}
+
+            case 2:{
+                DrawText("tiempo!",240,16, 64, WHITE);
+                DrawText(TextFormat("puntos: %i", jugador.mostrar_punto()),128,216, 32, WHITE);
+                DrawText(TextFormat("duración: %i", contador.tiempo_partida()),128,272, 32, WHITE);
+                boton volver(256 + 64 - 128,420,128,48,gestor_imagenes.buscar(1));
+                boton cargar(256 + 64 + 8,420,128,48,gestor_imagenes.buscar(1));
+                volver.dibujar("volvér");
+                cargar.dibujar("Cargar");
+                
+                if(volver.presionado(raton,raton_presionado)){contador.reiniciar(); menu_opcion = 0;}
+            break;}
         }
         EndDrawing();//terminar el dibujado de imagen
     }

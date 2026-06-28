@@ -8,6 +8,9 @@ gestor_media::gestor_media(){
     imagenes.push_back(LoadTexture("media/puerta.png"));//3
     imagenes.push_back(LoadTexture("media/fondo.png"));//4
     imagenes.push_back(LoadTexture("media/perder.png"));//5
+    imagenes.push_back(LoadTexture("media/titulo.png"));//6
+    imagenes.push_back(LoadTexture("media/hacer.png"));//7
+    imagenes.push_back(LoadTexture("media/deshacer.png"));//8
 }
 Texture2D gestor_media::buscar( int id){
     return imagenes[id];
