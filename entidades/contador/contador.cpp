@@ -21,3 +21,8 @@ void contador::dibujar()
     int tamaño = MeasureText(TextFormat("%i", segundosTranscurridos), 128);
     DrawText(TextFormat("%i", segundosTranscurridos), (256 - tamaño / 2) , 64, 128, GRAY);
 }
+
+void contador::sumar()
+{
+    segundosTranscurridos +=10;
+}

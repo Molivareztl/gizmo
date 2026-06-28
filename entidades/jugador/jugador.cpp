@@ -15,21 +15,33 @@ jugador::jugador(){
     tamaño.y = 32;
     hitbox = {posicion.x, posicion.y, tamaño.x, tamaño.y};
     puede_disparar = false;
-    municion ={5, 2};
+    municion ={GetRandomValue(1,5),GetRandomValue(1,5)};
+    textura.reserve(2);
 };
 void jugador::ubicar(int posx, int posy){
     posicion.x = posx; 
     posicion.y = posy;
 }
-void jugador::cargar( Texture2D textura){
-    sprite = textura;
+void jugador::cargar( Texture2D _textura){
+    textura.push_back(_textura);
 }
 void jugador::dibujar(){
-    DrawTexturePro(sprite, Rectangle{0,0,direccion_sprite,16},hitbox,Vector2{0,0},0,WHITE);
-    DrawText(TextFormat("%i", municion[opcion]),hitbox.x + hitbox.width/2,hitbox.y - hitbox.width/2,32,WHITE);
+    switch (opcion)//mostrar la munición
+    {
+    case 0:
+        DrawText(TextFormat("%i", municion[opcion]),hitbox.x + 8,hitbox.y - hitbox.width,32,PINK);
+        break;
+    case 1:
+        DrawText(TextFormat("%i", municion[opcion]),hitbox.x + 8,hitbox.y - hitbox.width,32,GREEN);
+        break;
+    }//mostrar el personaje
+    DrawTexturePro(textura[0], Rectangle{0,0,direccion_sprite,16},hitbox,Vector2{0,0},0,WHITE);
 }
 void jugador::disparar(){
+    if(municion[opcion] != 0){
     proyectiles.emplace_back(hitbox, direccion,opcion);
+    municion[opcion] -= 1;
+    }
 }
 void jugador::actualizar(){
     posicion.x += velocidad.x;
@@ -37,7 +49,7 @@ void jugador::actualizar(){
     hitbox.x = posicion.x;
     hitbox.y = posicion.y;
     direccion.x = velocidad.x;
-    direccion.y = velocidad.y;
+    direccion.y = velocidad.y + 0.1;
 
     if(IsKeyPressed(KEY_ONE)){
         opcion = 0;
@@ -101,6 +113,7 @@ void jugador::colisiona(Rectangle collision){
 void jugador::vaciar()
 {
     proyectiles.clear();
+    municion = {GetRandomValue(1,5),GetRandomValue(1,5)};
 }
 
 void jugador::sumar_punto()

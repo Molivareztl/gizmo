@@ -2,6 +2,8 @@
 #include <raylib.h>
 #include <vector>
 #include "../proyectil/proyectil.h"
+#include <chrono>
+#include <thread>
 class jugador
 {
 private:
@@ -16,7 +18,7 @@ private:
     bool puede_disparar;
     int habitaciones_pasadas;
     std::vector<int> municion;
-    Texture2D sprite;
+    std::vector<Texture2D> textura;
     Rectangle hitbox;
     Vector2 direccion;
     Vector2 tamaño;

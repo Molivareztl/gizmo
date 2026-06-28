@@ -10,4 +10,5 @@ public:
     contador();
     void contar();
     void dibujar();
+    void sumar();
 };
