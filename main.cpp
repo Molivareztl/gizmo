@@ -1,12 +1,14 @@
 
-#include <raylib.h>
+#include <raylib.h>//headers de juego
+#include <vector>
 #include "entidades/jugador/jugador.h"
 #include "entidades/ladrillo/ladrillo.h"
 #include "escenas/escenas.h"
 #include "media/gestor_media.h"
 #include "entidades/contador/contador.h"
 #include "entidades/boton/boton.h"
-#include <vector>
+#include "entidades/caja_texto/caja_texto.h"
+#include "conector/gestor_conexion.h"
 
 int main(){
     const int screenWidth = 512;//ancho de pantalla
@@ -31,6 +33,8 @@ int main(){
     cuarto_posible.emplace_back(escenas.cuarto2());
 
     int menu_opcion = 0;
+
+    caja_texto usuario(256,256,256,48,RED);//nombre del usuario
 
     std::vector<ladrillo> cuarto_actual = cuarto_posible[GetRandomValue(0,1)];//seleccionar un nivel aleatorio
     jugador.ubicar(escenas.jugador_inicio.x, escenas.jugador_inicio.y);//posición inicial del jugador
@@ -101,7 +105,7 @@ int main(){
             }
                 jugador.dibujar();// dibuja al jugador
                 jugador.actualizar(); // actualiza la posición del jugador
-        }else if(contador.fin() == true){menu_opcion = 2;}
+        }else if(contador.fin() == true && menu_opcion == 1){menu_opcion = 2;}
 
         switch(menu_opcion){//menu inicial
             case 0:{
@@ -118,15 +122,26 @@ int main(){
             break;}
 
             case 2:{
-                DrawText("tiempo!",240,16, 64, WHITE);
+                DrawText("tiempo!",128,128, 64, WHITE);
                 DrawText(TextFormat("puntos: %i", jugador.mostrar_punto()),128,216, 32, WHITE);
                 DrawText(TextFormat("duración: %i", contador.tiempo_partida()),128,272, 32, WHITE);
+                boton volver(192,420,128,48,gestor_imagenes.buscar(1));
+                boton cargar(320 + 8,420,128,48,gestor_imagenes.buscar(1));
+                volver.dibujar("volver");
+                cargar.dibujar("Cargar");
+                if(volver.presionado(raton,raton_presionado)){contador.reiniciar(); menu_opcion = 0;}
+                if(cargar.presionado(raton,raton_presionado)){contador.reiniciar(); menu_opcion = 4;}
+            break;}
+            case 4:{
+                DrawText("como se llama?",128,164, 32, WHITE);
+                usuario.escribir();
+                usuario.dibujar();
                 boton volver(256 + 64 - 128,420,128,48,gestor_imagenes.buscar(1));
                 boton cargar(256 + 64 + 8,420,128,48,gestor_imagenes.buscar(1));
-                volver.dibujar("volvér");
+                volver.dibujar("volver");
                 cargar.dibujar("Cargar");
-                
                 if(volver.presionado(raton,raton_presionado)){contador.reiniciar(); menu_opcion = 0;}
+                if(cargar.presionado(raton,raton_presionado)){contador.reiniciar(); menu_opcion = 4;}
             break;}
         }
         EndDrawing();//terminar el dibujado de imagen
