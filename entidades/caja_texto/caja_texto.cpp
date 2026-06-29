@@ -7,10 +7,10 @@ caja_texto::caja_texto(int posx, int posy, int ancho, int alto, Color _color)
     hitbox.x = posx - hitbox.width / 2;
     hitbox.y = posy - hitbox.height / 2;
     cantidad = 0;
+    caracteres[9] = '\0';
 }
 void caja_texto::escribir()
 {
-    
     int tecla = GetCharPressed();
     while (tecla > 0)
     {
@@ -38,4 +38,10 @@ void caja_texto::dibujar()
     int tamaño_texto = MeasureText(caracteres,32);
     DrawRectangle(hitbox.x,hitbox.y,hitbox.width,hitbox.height,RED);
     DrawText(caracteres,hitbox.x, hitbox.y,32,WHITE);
+}
+
+const char* caja_texto::datos()
+{
+    const char* nombre = caracteres;
+    return nombre;
 }

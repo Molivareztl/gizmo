@@ -19,6 +19,7 @@ int main(){
     SetTargetFPS(60);// definir frames
     gestor_media gestor_imagenes;//iniciar el gestor de imagenes
     escenas escenas;//iniciar el gestor de escenas
+    NetworkManager conexion("pma.torga.com.ar", "u3_TIM7rSia9H", "C^Sc9FRhnwH7Owkr@T8i0S0W", "s3_gizmo_db");
     escenas.cargar(gestor_imagenes.buscar(1));
     escenas.cargar(gestor_imagenes.buscar(2));
     
@@ -130,7 +131,7 @@ int main(){
                 volver.dibujar("volver");
                 cargar.dibujar("Cargar");
                 if(volver.presionado(raton,raton_presionado)){contador.reiniciar(); menu_opcion = 0;}
-                if(cargar.presionado(raton,raton_presionado)){contador.reiniciar(); menu_opcion = 4;}
+                if(cargar.presionado(raton,raton_presionado)){menu_opcion = 4;}
             break;}
             case 4:{
                 DrawText("como se llama?",128,164, 32, WHITE);
@@ -141,7 +142,11 @@ int main(){
                 volver.dibujar("volver");
                 cargar.dibujar("Cargar");
                 if(volver.presionado(raton,raton_presionado)){contador.reiniciar(); menu_opcion = 0;}
-                if(cargar.presionado(raton,raton_presionado)){contador.reiniciar(); menu_opcion = 4;}
+                if(cargar.presionado(raton,raton_presionado))
+                {
+                    conexion.EnviarPuntajeAsync(usuario.datos(), jugador.mostrar_punto(), contador.tiempo_partida());
+                    contador.reiniciar(); menu_opcion = 0;
+                }
             break;}
         }
         EndDrawing();//terminar el dibujado de imagen

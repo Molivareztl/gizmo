@@ -11,4 +11,5 @@ public:
     caja_texto(int posx, int posy, int ancho, int alto, Color color);
     void escribir();
     void dibujar();
+    const char* datos();
 };
