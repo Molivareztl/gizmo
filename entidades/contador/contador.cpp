@@ -3,7 +3,8 @@
 contador::contador()
 {
     tiempo = 0.0f;
-    tiempo_actual = 5;
+    tiempo_original = 60;
+    tiempo_actual = tiempo_original;
     duracion = 0;
 }
 
@@ -24,9 +25,9 @@ void contador::dibujar()
     DrawText(TextFormat("%i", tiempo_actual), (256 - tamaño / 2) , 64, 128, GRAY);
 }
 
-void contador::sumar()
+void contador::modificar(int num)
 {
-    tiempo_actual +=10;
+    tiempo_actual += num;
 }
 
 bool contador::fin()
@@ -37,7 +38,7 @@ bool contador::fin()
 
 void contador::reiniciar()
 {
-    tiempo_actual = 5;
+    tiempo_actual = tiempo_original;
     duracion = 0;
 }
 

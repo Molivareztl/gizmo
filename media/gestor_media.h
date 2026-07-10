@@ -10,5 +10,6 @@ private:
 public:
     gestor_media();
     Texture2D buscar(int id);
+    Sound buscar_audio(int id);
     void vaciar();
 };

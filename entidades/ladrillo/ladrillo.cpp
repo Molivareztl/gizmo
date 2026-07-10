@@ -14,3 +14,18 @@ ladrillo::ladrillo(int posx,int posy,int ancho, int alto, Color _color, Texture2
 void ladrillo::dibujar(){
     DrawTexturePro(textura, Rectangle{hitbox.x ,hitbox.y,hitbox.width/2,hitbox.height/2}, hitbox,Vector2{0,0},0,color);
 }
+
+bool ladrillo::puede_lastimar()
+{
+    return lastima;
+}
+
+bool ladrillo::puede_pasar()
+{
+    return es_puerta;
+}
+
+bool ladrillo::se_puede_destruir()
+{
+    return destruible;
+}
