@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 #include <thread>
-#include <mysql/mysql.h> 
+#include "mysql.h"
 
 class NetworkManager {
 private:

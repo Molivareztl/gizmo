@@ -1,5 +1,4 @@
-
-#include <raylib.h>//headers de juego
+#include "raylib.h"
 #include <vector>
 #include "entidades/jugador/jugador.h"
 #include "entidades/ladrillo/ladrillo.h"
@@ -68,10 +67,12 @@ int main(){
                 if (jugador.colision_lastima() == false){
                     cuarto_actual = cuarto_posible[GetRandomValue(0,7)];
                     jugador.ubicar(escenas.jugador_inicio.x, escenas.jugador_inicio.y);
+                    contador.modificar(-10);
                 }
                 if (jugador.colision_puerta() == true){
                     cuarto_actual = cuarto_posible[GetRandomValue(0,7)];
                     jugador.ubicar(escenas.jugador_inicio.x, escenas.jugador_inicio.y);
+                    contador.modificar(10);
                 }
 
                 //dibujar los proyectiles

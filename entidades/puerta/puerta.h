@@ -1,6 +1,6 @@
 #pragma once
 #include "../ladrillo/ladrillo.h"
-#include <raylib.h>
+#include "raylib.h"
 
 class puerta : public ladrillo
 {

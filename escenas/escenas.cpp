@@ -1,5 +1,4 @@
 #include "escenas.h"
-#include "../entidades/puerta/puerta.h"
 
 void escenas::cargar(Texture2D _textura){
     textura.reserve(3);
@@ -49,7 +48,7 @@ std::vector<ladrillo> escenas::cuarto3(){
     cuarto.emplace_back(400, 200, 50, 50, WHITE, textura[1], true, false,false);
 
     jugador_inicio.x = 200;
-    jugador_inicio.y = 200;
+    jugador_inicio.y = 100;
     return cuarto;
 }
 std::vector<ladrillo> escenas::cuarto4(){
