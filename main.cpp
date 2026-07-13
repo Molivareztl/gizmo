@@ -44,7 +44,7 @@ int main(){
 
     boton cargar_usuario(328,420,128,48,gestor_media.buscar(1));//botones de la carga de usuario
     escenas.cargar_escenas();//cargar niveles
-    escenas.definir_cuarto(0);//definir el nivel incial
+    escenas.definir_cuarto(1);//definir el nivel incial
     // bucle del juego
     while (WindowShouldClose() == false && menu_opcion != 3){
         BeginDrawing();//empezar el dibujado de imagen
@@ -147,7 +147,7 @@ int main(){
                 contraseña.dibujar();
                 volver.dibujar("volver");
                 cargar_usuario.dibujar("Cargar");
-                if(volver.presionado(raton,raton_presionado)){contador.reiniciar(); menu_opcion = 5;}
+                if(volver.presionado(raton,raton_presionado)){menu_opcion = 5;}
                 if(cargar_usuario.presionado(raton,raton_presionado))
                 {
                     
@@ -161,7 +161,7 @@ int main(){
                 DrawText("Error! algo de los datos es incorrecto.",64,164, 20, WHITE);
                 DrawText("vuelve a intentarlo.",64,200, 20, WHITE);
                 volver.dibujar("volver");
-                if(volver.presionado(raton,raton_presionado)){contador.reiniciar(); menu_opcion = 4;}
+                if(volver.presionado(raton,raton_presionado)){menu_opcion = 4;}
             break;}
         }
         EndDrawing();//terminar el dibujado de imagen
