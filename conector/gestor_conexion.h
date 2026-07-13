@@ -87,9 +87,7 @@ public:
             return false;
         }
         //se actualizan los datos de la base de datos
-        std::string consulta = "UPDATE Usuarios SET Puntos = " + std::to_string(nuevosPuntos) + 
-                               ", Tiempo = " + std::to_string(nuevoTiempo) + 
-                               " WHERE Nombre = '" + nuevoUsuario + "'";
+        std::string consulta = "UPDATE Usuarios SET Puntos = " + std::to_string(nuevosPuntos) + ", Tiempo = " + std::to_string(nuevoTiempo) + " WHERE Nombre = '" + nuevoUsuario + "'";
         bool exito = false;
         if (mysql_query(conn, consulta.c_str())) {
             std::cout << mysql_error(conn) << std::endl;
