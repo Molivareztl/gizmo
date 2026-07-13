@@ -19,33 +19,32 @@ int main(){
     SetTargetFPS(60);// definir frames
     gestor_media gestor_media;//iniciar el gestor de imagenes
     escenas escenas;//iniciar el gestor de escenas
-    NetworkManager conexion("pma.torga.com.ar", "u3_TIM7rSia9H", "C^Sc9FRhnwH7Owkr@T8i0S0W", "s3_gizmo_db");
-    escenas.cargar(gestor_media.buscar(1));
-    escenas.cargar(gestor_media.buscar(3));
-    escenas.cargar(gestor_media.buscar(9));
+    gestor_conexion conexion("pma.torga.com.ar", "u3_TIM7rSia9H", "C^Sc9FRhnwH7Owkr@T8i0S0W", "s3_gizmo_db");
     
     jugador.cargar(gestor_media.buscar(0));//carga todo el contenido de media asociado al jugador
-    jugador.cargar(gestor_media.buscar(7));//carga todo el contenido de media asociado al jugador
-    jugador.cargar(gestor_media.buscar(8));//carga todo el contenido de media asociado al jugador
-
+    jugador.cargar(gestor_media.buscar(6));
+    jugador.cargar(gestor_media.buscar(7));
     jugador.cargar(gestor_media.buscar_audio(0));
     jugador.cargar(gestor_media.buscar_audio(1));
 
-    std::vector<std::vector<ladrillo>> cuarto_posible;//iniciar el vector de cuarto
-    //cargar niveles :
-    cuarto_posible.emplace_back(escenas.cuarto1());
-    cuarto_posible.emplace_back(escenas.cuarto2());
-    cuarto_posible.emplace_back(escenas.cuarto3());
-    cuarto_posible.emplace_back(escenas.cuarto4());
-    cuarto_posible.emplace_back(escenas.cuarto5());
-    cuarto_posible.emplace_back(escenas.cuarto6());
-    cuarto_posible.emplace_back(escenas.cuarto7());
-    cuarto_posible.emplace_back(escenas.cuarto8());
-    int menu_opcion = 0;
+    escenas.cargar(gestor_media.buscar(1));//carga todo el contenido media asociado a los niveles
+    escenas.cargar(gestor_media.buscar(3));
+    escenas.cargar(gestor_media.buscar(8));
+
+    int menu_opcion = 4;
 
     caja_texto usuario(256,256,256,48,RED);//nombre del usuario
+    caja_texto contraseña(256,256,256,48,RED);//nombre del usuario
+    boton iniciar(256,256,128,48,gestor_media.buscar(1));//botones del menu principal
+    boton ayuda(256,312,128,48,gestor_media.buscar(1));
+    boton salir(256,368,128,48,gestor_media.buscar(1));
 
-    std::vector<ladrillo> cuarto_actual = cuarto_posible[GetRandomValue(0,7)];//seleccionar un nivel aleatorio
+    boton volver(192,420,128,48,gestor_media.buscar(1));//botones de la pantalla de "fin"
+    boton cargar_fin(328,420,128,48,gestor_media.buscar(1));
+
+    boton cargar_usuario(328,420,128,48,gestor_media.buscar(1));//botones de la carga de usuario
+    escenas.cargar_escenas();//cargar niveles
+    escenas.definir_cuarto(4);//definir el nivel incial
     // bucle del juego
     while (WindowShouldClose() == false && menu_opcion != 3){
         BeginDrawing();//empezar el dibujado de imagen
@@ -59,18 +58,21 @@ int main(){
             //dibujar la escena
             DrawText(TextFormat("%i", jugador.mostrar_punto()),240,16, 64, WHITE);
             contador.dibujar();
-            for (size_t i = 0; i < cuarto_actual.size(); i++){
-                jugador.colisiona(cuarto_actual[i]);
+            for (size_t i = 0; i < escenas.cuarto().size(); i++)
+            {
+                jugador.colisiona(escenas.cuarto()[i]);
                 contador.contar();
-                cuarto_actual[i].dibujar();
+                escenas.cuarto()[i].dibujar();
 
-                if (jugador.colision_lastima() == false){
-                    cuarto_actual = cuarto_posible[GetRandomValue(0,7)];
+                if (jugador.colision_lastima() == false)
+                {
+                    escenas.definir_cuarto(GetRandomValue(0, 7));
                     jugador.ubicar(escenas.jugador_inicio.x, escenas.jugador_inicio.y);
                     contador.modificar(-10);
                 }
-                if (jugador.colision_puerta() == true){
-                    cuarto_actual = cuarto_posible[GetRandomValue(0,7)];
+                if (jugador.colision_puerta() == true)
+                {
+                    escenas.definir_cuarto(GetRandomValue(0, 7));
                     jugador.ubicar(escenas.jugador_inicio.x, escenas.jugador_inicio.y);
                     contador.modificar(10);
                 }
@@ -79,20 +81,21 @@ int main(){
                 if(!jugador.proyectiles.empty()){
                     for (size_t j = 0; j < jugador.proyectiles.size(); j++){
                         jugador.proyectiles[j].dibujar();
-                        jugador.proyectiles[j].colisiona(cuarto_actual[i]);
+                        jugador.proyectiles[j].colisiona(escenas.cuarto()[i]);
                         //detectar colisiones de proyectil y definit su comportamiento
-                        if (jugador.proyectiles[j].estado_colision() == true){
-                                if (jugador.proyectiles[j].destruir() == true)
-                                {
-                                    cuarto_actual.erase(cuarto_actual.begin() + i);
-                                    jugador.proyectiles.erase(jugador.proyectiles.begin() + j);
-                                }
-                                if (jugador.proyectiles[j].crear() == true)
-                                {
-                                    Rectangle hitbox = jugador.proyectiles[j].devolver_hitbox();
-                                    cuarto_actual.emplace_back(hitbox.x - hitbox.width,hitbox.y - hitbox.height,50,50, GREEN, gestor_media.buscar(1), false, false, true);
-                                    jugador.proyectiles.erase(jugador.proyectiles.begin() + j);
-                                }
+                        if (jugador.proyectiles[j].estado_colision() == true)
+                        {
+                            if (jugador.proyectiles[j].destruir() == true)
+                            {
+                                jugador.proyectiles.erase(jugador.proyectiles.begin() + j);
+                                escenas.borrar(i);
+                            }
+                            if (jugador.proyectiles[j].crear() == true)
+                            {
+                                jugador.proyectiles.erase(jugador.proyectiles.begin() + j);
+                                Rectangle hitbox = jugador.proyectiles[j].devolver_hitbox();
+                                escenas.crear(hitbox.x - hitbox.width,hitbox.y - hitbox.height,50,50, GREEN, gestor_media.buscar(1), false, false, true);
+                            }
                         }
                     }
                 }
@@ -112,9 +115,6 @@ int main(){
                 jugador.ubicar(escenas.jugador_inicio.x, escenas.jugador_inicio.y);//posición inicial del jugador
                 jugador.vaciar();
                 DrawTexturePro(gestor_media.buscar(6),Rectangle{0, 0, 256, 128},Rectangle{128, 64, 256, 128},Vector2{0, 0},0,WHITE);
-                boton iniciar(256,256,128,48,gestor_media.buscar(1));
-                boton ayuda(256,312,128,48,gestor_media.buscar(1));
-                boton salir(256,368,128,48,gestor_media.buscar(1));
                 iniciar.dibujar("iniciar");
                 ayuda.dibujar("ayuda");
                 salir.dibujar("salir");
@@ -127,27 +127,41 @@ int main(){
                 DrawText("tiempo!",128,128, 64, WHITE);
                 DrawText(TextFormat("puntos: %i", jugador.mostrar_punto()),128,216, 32, WHITE);
                 DrawText(TextFormat("duración: %i", contador.tiempo_partida()),128,272, 32, WHITE);
-                boton volver(192,420,128,48,gestor_media.buscar(1));
-                boton cargar(320 + 8,420,128,48,gestor_media.buscar(1));
                 volver.dibujar("volver");
-                cargar.dibujar("Cargar");
+                cargar_fin.dibujar("Cargar");
                 if(volver.presionado(raton,raton_presionado)){contador.reiniciar(); menu_opcion = 0;}
-                if(cargar.presionado(raton,raton_presionado)){menu_opcion = 4;}
+                if(cargar_fin.presionado(raton,raton_presionado)){menu_opcion = 4;}
             break;}
             case 4:{
                 DrawText("como se llama?",128,164, 32, WHITE);
                 usuario.escribir();
                 usuario.dibujar();
-                boton volver(256 + 64 - 128,420,128,48,gestor_media.buscar(1));
-                boton cargar(256 + 64 + 8,420,128,48,gestor_media.buscar(1));
                 volver.dibujar("volver");
-                cargar.dibujar("Cargar");
+                cargar_usuario.dibujar("Cargar");
                 if(volver.presionado(raton,raton_presionado)){contador.reiniciar(); menu_opcion = 0;}
-                if(cargar.presionado(raton,raton_presionado))
+                if(cargar_usuario.presionado(raton,raton_presionado)){menu_opcion = 5;}
+            break;}
+            case 5:{
+                DrawText("cual es su contraseña?",64,164, 32, WHITE);
+                contraseña.escribir();
+                contraseña.dibujar();
+                volver.dibujar("volver");
+                cargar_usuario.dibujar("Cargar");
+                if(volver.presionado(raton,raton_presionado)){contador.reiniciar(); menu_opcion = 5;}
+                if(cargar_usuario.presionado(raton,raton_presionado))
                 {
-                    conexion.EnviarPuntajeAsync(usuario.datos(), jugador.mostrar_punto(), contador.tiempo_partida());
-                    contador.reiniciar(); menu_opcion = 0;
+                    
+                    if (conexion.registro(usuario.datos(), contraseña.datos()) == true){
+                        conexion.actualizar(usuario.datos(),jugador.mostrar_punto(),contador.tiempo_partida());
+                        contador.reiniciar(); menu_opcion = 0;
+                    }else{menu_opcion = 6;}
                 }
+            break;}
+            case 6:{
+                DrawText("Error! algo de los datos es incorrecto.",64,164, 20, WHITE);
+                DrawText("vuelve a intentarlo.",64,200, 20, WHITE);
+                volver.dibujar("volver");
+                if(volver.presionado(raton,raton_presionado)){contador.reiniciar(); menu_opcion = 4;}
             break;}
         }
         EndDrawing();//terminar el dibujado de imagen

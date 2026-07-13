@@ -57,7 +57,7 @@ void jugador::dibujar(){
 void jugador::disparar(){
     if(municion[opcion] != 0)
     {
-    proyectiles.emplace_back(hitbox, direccion,opcion);
+    proyectiles.emplace_back(hitbox, direccion ,opcion);
     municion[opcion] -= 1;
     PlaySound(efectos[1]);
     }
@@ -91,7 +91,7 @@ void jugador::actualizar(){
         {
             en_el_suelo = true;
             PlaySound(efectos[0]);
-            velocidad.y = -3.0f;
+            velocidad.y = -3.5f;
         }   
     }else
     {

@@ -7,14 +7,18 @@ caja_texto::caja_texto(int posx, int posy, int ancho, int alto, Color _color)
     hitbox.x = posx - hitbox.width / 2;
     hitbox.y = posy - hitbox.height / 2;
     cantidad = 0;
-    caracteres[9] = '\0';
+    for (int i = 0; i < 10; i++)
+    {
+        caracteres[i] = ' ';
+    }
+    caracteres[11] = '\0';
 }
 void caja_texto::escribir()
 {
     int tecla = GetCharPressed();
     while (tecla > 0)
     {
-        if ((tecla >= 5)&&(tecla <= 125) && cantidad <9)
+        if ((tecla >= 5)&&(tecla <= 125) && cantidad <11)
         {
            caracteres[cantidad] =(char) tecla;
            cantidad++;
