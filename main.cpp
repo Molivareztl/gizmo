@@ -119,7 +119,7 @@ int main(){
                 ayuda.dibujar("ayuda");
                 salir.dibujar("salir");
                 if(iniciar.presionado(raton,raton_presionado)){menu_opcion = 1;}
-                if(ayuda.presionado(raton,raton_presionado)){OpenURL("https://www.youtube.com/watch?v=0Ct9ZWEUm7M&t=792s");}
+                if(ayuda.presionado(raton,raton_presionado)){OpenURL("https://molivareztl.github.io/gizmo./");}
                 if(salir.presionado(raton,raton_presionado)){menu_opcion = 3;}
             break;}
 
