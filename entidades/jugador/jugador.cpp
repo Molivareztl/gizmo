@@ -21,6 +21,8 @@ void jugador::ubicar(int posx, int posy)
     hitbox.y = posy;
     estado_vida = true;
     atravesar_puerta = false;
+    velocidad.x = 0;
+    velocidad.y = 0;
     vaciar();
 }
 void jugador::cargar( Texture2D _textura)

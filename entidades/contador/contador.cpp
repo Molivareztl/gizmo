@@ -12,10 +12,10 @@ void contador::contar()
 {
     tiempo += GetFrameTime(); 
         
-    if (tiempo >= 10.0f) {
+    if (tiempo >= 1.0f) {
         tiempo_actual -= 1;
         duracion += 1;
-        tiempo -= 10.0f; // Reiniciamos el residuo
+        tiempo -= 1.0f; // Reiniciamos el residuo
     }
 }
 

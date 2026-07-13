@@ -31,7 +31,7 @@ int main(){
     escenas.cargar(gestor_media.buscar(3));
     escenas.cargar(gestor_media.buscar(8));
 
-    int menu_opcion = 4;
+    int menu_opcion = 0;
 
     caja_texto usuario(256,256,256,48,RED);//nombre del usuario
     caja_texto contraseña(256,256,256,48,RED);//nombre del usuario
@@ -44,7 +44,7 @@ int main(){
 
     boton cargar_usuario(328,420,128,48,gestor_media.buscar(1));//botones de la carga de usuario
     escenas.cargar_escenas();//cargar niveles
-    escenas.definir_cuarto(4);//definir el nivel incial
+    escenas.definir_cuarto(9);//definir el nivel incial
     // bucle del juego
     while (WindowShouldClose() == false && menu_opcion != 3){
         BeginDrawing();//empezar el dibujado de imagen
@@ -58,10 +58,10 @@ int main(){
             //dibujar la escena
             DrawText(TextFormat("%i", jugador.mostrar_punto()),240,16, 64, WHITE);
             contador.dibujar();
+            contador.contar();
             for (size_t i = 0; i < escenas.cuarto().size(); i++)
             {
                 jugador.colisiona(escenas.cuarto()[i]);
-                contador.contar();
                 escenas.cuarto()[i].dibujar();
 
                 if (jugador.colision_lastima() == false)
@@ -114,7 +114,7 @@ int main(){
                 contador.reiniciar();
                 jugador.ubicar(escenas.jugador_inicio.x, escenas.jugador_inicio.y);//posición inicial del jugador
                 jugador.vaciar();
-                DrawTexturePro(gestor_media.buscar(6),Rectangle{0, 0, 256, 128},Rectangle{128, 64, 256, 128},Vector2{0, 0},0,WHITE);
+                DrawTexturePro(gestor_media.buscar(5),Rectangle{0, 0, 256, 128},Rectangle{128, 64, 256, 128},Vector2{0, 0},0,WHITE);
                 iniciar.dibujar("iniciar");
                 ayuda.dibujar("ayuda");
                 salir.dibujar("salir");

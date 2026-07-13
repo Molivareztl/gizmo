@@ -20,6 +20,8 @@ class escenas
     std::vector<ladrillo> cuarto6();
     std::vector<ladrillo> cuarto7();
     std::vector<ladrillo> cuarto8();
+    std::vector<ladrillo> cuarto9();
+    std::vector<ladrillo> cuarto10();
     std::vector <Texture2D> textura;
     void cargar(Texture2D textura);
     void borrar(int i);
