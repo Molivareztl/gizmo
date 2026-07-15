@@ -44,7 +44,7 @@ int main(){
 
     boton cargar_usuario(328,420,128,48,gestor_media.buscar(1));//botones de la carga de usuario
     escenas.cargar_escenas();//cargar niveles
-    escenas.definir_cuarto(1);//definir el nivel incial
+    escenas.definir_cuarto(0);//definir el nivel incial
     // bucle del juego
     while (WindowShouldClose() == false && menu_opcion != 3){
         BeginDrawing();//empezar el dibujado de imagen
@@ -67,12 +67,14 @@ int main(){
                 if (jugador.colision_lastima() == false)
                 {
                     escenas.definir_cuarto(GetRandomValue(0, 9));
+                    escenas.definir_animacion(jugador.posicion_actual());
                     jugador.ubicar(escenas.jugador_inicio.x, escenas.jugador_inicio.y);
                     contador.modificar(-10);
                 }
                 if (jugador.colision_puerta() == true)
                 {
                     escenas.definir_cuarto(GetRandomValue(0, 9));
+                    escenas.definir_animacion(jugador.posicion_actual());
                     jugador.ubicar(escenas.jugador_inicio.x, escenas.jugador_inicio.y);
                     contador.modificar(10);
                 }
@@ -105,8 +107,11 @@ int main(){
                 jugador.proyectiles[i].dibujar();
                 jugador.proyectiles[i].mover();
             }
+            escenas.animacion();
+            jugador.animar();
             jugador.actualizar(); // actualiza la posición del jugador
             jugador.dibujar();// dibuja al jugador
+            
         }else if(contador.fin() == true && menu_opcion == 1){menu_opcion = 2;}
 
         switch(menu_opcion){//menu inicial

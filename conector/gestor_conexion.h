@@ -41,7 +41,7 @@ public:
 
         // si devuelve, los datos son correctos
         if (mysql_num_rows(resultado) > 0) {
-            std::cout << "Usuario validado correctamente (Inicio de sesion)." << std::endl;
+            std::cout << "Usuario validado." << std::endl;
             mysql_free_result(resultado);
             mysql_close(conn);
             return true; 
@@ -66,7 +66,7 @@ public:
 
         // si no existe se crea
         std::string consultaInsert = "INSERT INTO Usuarios (Nombre, Contraseña, Puntos, Tiempo) VALUES ('" + _usuario + "', '" + _contraseña + "', 0, 0)";
-        
+
         bool exito = false;
         if (mysql_query(conn, consultaInsert.c_str())) {
             std::cout << mysql_error(conn) << std::endl;

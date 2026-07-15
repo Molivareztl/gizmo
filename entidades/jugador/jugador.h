@@ -9,18 +9,21 @@ class jugador
 {
 private:
     Vector2 velocidad;
+    Vector2 posicion_animacion;
     int velocidad_disparo;
     int opcion;
     bool en_el_suelo;
     bool puede_disparar;
     bool estado_vida;
     bool atravesar_puerta;
+    bool input;
     int habitaciones_pasadas;
     std::vector<int> municion;
     std::vector<Texture2D> textura;
     std::vector<Sound> efectos;
     Rectangle hitbox;
     Vector2 direccion;
+    bool animacion;
     Rectangle atlas;
 public:
     jugador();
@@ -38,5 +41,7 @@ public:
     int mostrar_punto();
     bool colision_lastima();
     bool colision_puerta();
+    void animar();
+    Vector2 posicion_actual();
 };
 

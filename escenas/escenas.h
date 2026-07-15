@@ -28,5 +28,6 @@ class escenas
     void crear(int posx,int posy,int ancho, int alto, Color _color, Texture2D _textura, bool _es_puerta, bool _lastima, bool _destruible);
     void definir_cuarto(int i);
     std::vector<ladrillo> cuarto();
-    
+    void definir_animacion(Vector2 pos);
+    void animacion();
 };

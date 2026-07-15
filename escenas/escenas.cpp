@@ -27,6 +27,27 @@ std::vector<ladrillo> escenas::cuarto()
     return cuarto_actual;
 }
 
+void escenas::definir_animacion(Vector2 pos)
+{
+    Vector2 pos_final;
+
+    if (pos.x <= 256){pos_final.x = 512;}else if (pos.x >= 257){pos_final.x -= 512;}
+    if (pos.y <= 256){pos_final.y = 512;}else if (pos.y >= 257){pos_final.y-= 512;}
+    for (size_t i = 0; i < cuarto_actual.size(); i++)
+    {
+        cuarto_actual[i].definir_animacion(pos_final.x, pos_final.y);
+    }
+    
+}
+
+void escenas::animacion()
+{
+    for (size_t i = 0; i < cuarto_actual.size(); i++)
+    {
+        cuarto_actual[i].animacion();
+    }
+}
+
 void escenas::cargar_escenas()
 {
     cuarto_posible.emplace_back(cuarto1());
