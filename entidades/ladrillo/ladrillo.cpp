@@ -16,6 +16,7 @@ ladrillo::ladrillo(int posx,int posy,int ancho, int alto, Color _color, Texture2
     velocidad.y = 0;
 }
 void ladrillo::dibujar(){
+    
     DrawTexturePro(textura, Rectangle{hitbox.x ,hitbox.y,hitbox.width/2,hitbox.height/2}, Rectangle{hitbox.x + transicion.x , hitbox.y + transicion.y, hitbox.width, hitbox.height},Vector2{0,0},0,color);
 }
 
@@ -36,23 +37,28 @@ bool ladrillo::se_puede_destruir()
 
 void ladrillo::definir_animacion(int posx, int posy)
 {
-
+    
     transicion.y = posy;
     transicion.x = posx;
 }
 
 void ladrillo::animacion()
 {
-    if(transicion.y > 0 ){
+    
+    if (transicion.y > 0)
+    {
         transicion.y -= 16;
     }
-    if(transicion.y < 0 ){
+    if (transicion.y < 0)
+    {
         transicion.y += 16;
     }
-    if(transicion.x > 0 ){
+    if (transicion.x > 0)
+    {
         transicion.x -= 16;
     }
-    if(transicion.x < 0 ){
+    if (transicion.x < 0)
+    {
         transicion.x += 16;
     }
 

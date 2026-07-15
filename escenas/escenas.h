@@ -3,6 +3,7 @@
 #include "../media/gestor_media.h"
 #include "../entidades/puerta/puerta.h"
 #include "raylib.h"
+#include "raymath.h"
 #include <vector>
 class escenas
 {

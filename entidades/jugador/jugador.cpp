@@ -23,6 +23,7 @@ void jugador::ubicar(int posx, int posy)
     hitbox.y = posy;
     estado_vida = true;
     input = false;
+    animacion = true;
     atravesar_puerta = false;
     velocidad.x = 0;
     velocidad.y = 0;
@@ -57,7 +58,7 @@ void jugador::dibujar(){
         atlas.y = 0;
     }//mostrar el personaje
 
-    DrawTexturePro(textura[0], Rectangle{atlas.x, atlas.y,atlas.width,15.99},Rectangle{(hitbox.x), (hitbox.y),hitbox.width,hitbox.height},Vector2{0,0},0,WHITE);
+    DrawTexturePro(textura[0], Rectangle{atlas.x, atlas.y,atlas.width,15.99},Rectangle{(hitbox.x + posicion_animacion.x), (hitbox.y + posicion_animacion.y),hitbox.width,hitbox.height},Vector2{0,0},0,WHITE);
     
 }
 void jugador::disparar(){
@@ -139,6 +140,7 @@ void jugador::colisiona(ladrillo collision){
                 hitbox.y -= overlap.height;
                 en_el_suelo = true;
                 input = true;
+                posicion_animacion = {0,0};
             }else
             {
                 hitbox.y += overlap.height;
@@ -183,17 +185,18 @@ bool jugador::colision_puerta()
 
 void jugador::animar()
 {
-    if(posicion_animacion.y > 0 ){
-        posicion_animacion.y -= 16;
+    if (posicion_animacion.y > 0)
+    {
+        posicion_animacion.y -= 10;
+    }else if (posicion_animacion.y < 0){
+        posicion_animacion.y += 10;
     }
-    if(posicion_animacion.y < 0 ){
-        posicion_animacion.y += 16;
-    }
-    if(posicion_animacion.x > 0 ){
-        posicion_animacion.x -= 16;
-    }
-    if(posicion_animacion.x < 0 ){
-        posicion_animacion.x += 16;
+    if (posicion_animacion.x > 0)
+    {
+        posicion_animacion.x -= 10;
+    }else if (posicion_animacion.x < 0)
+    {
+        posicion_animacion.x += 10;
     }
 }
 
