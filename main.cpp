@@ -70,7 +70,7 @@ int main(){
                     escenas.definir_cuarto(random);
                     escenas.definir_animacion(jugador.posicion_actual());
                     jugador.ubicar(escenas.jugador_inicio.x, escenas.jugador_inicio.y);
-                    contador.modificar(10);
+                    contador.modificar(-10);
                 }
                 if (jugador.colision_puerta() == true)
                 {
