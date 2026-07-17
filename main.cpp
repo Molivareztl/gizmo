@@ -110,7 +110,6 @@ int main(){
                 jugador.proyectiles[i].mover();
             }
             escenas.animacion();
-            jugador.animar();
             jugador.actualizar(); // actualiza la posición del jugador
             jugador.dibujar();// dibuja al jugador
             

@@ -10,7 +10,6 @@ class jugador
 {
 private:
     Vector2 velocidad;
-    Vector2 posicion_animacion;
     int velocidad_disparo;
     int opcion;
     bool en_el_suelo;
@@ -24,7 +23,6 @@ private:
     std::vector<Sound> efectos;
     Rectangle hitbox;
     Vector2 direccion;
-    bool animacion;
     Rectangle atlas;
 public:
     jugador();
